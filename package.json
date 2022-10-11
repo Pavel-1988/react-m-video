@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "prop-types": "^15.8.1"
+  }
+}
