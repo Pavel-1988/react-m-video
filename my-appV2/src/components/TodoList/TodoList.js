@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import './TodoList.css'
 
 
+
 const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
   <ul className="TodoList">
     {todos.map(({ id, text, completed }) => (
