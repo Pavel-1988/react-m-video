@@ -21,7 +21,6 @@ export class App extends Component {
         text,
         completed: false,
       }
-
       this.setState(({todos}) => ({
         todos:[todo,...todos]
       }))
@@ -76,7 +75,6 @@ export class App extends Component {
   };
 
   render() {
-
     const { todos, filter } = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos
@@ -107,3 +105,8 @@ export class App extends Component {
 }
 
 export default App
+
+
+
+
+  

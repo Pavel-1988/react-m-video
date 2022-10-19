@@ -1,5 +1,5 @@
 import React from 'react'
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import './TodoList.css'
 
 
@@ -9,9 +9,7 @@ const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
     {todos.map(({ id, text, completed }) => (
       <li
         key={id}
-        className={classNames('TodoList__item', {
-          'TodoList__item--completed': completed,
-        })}
+        className='TodoList__item'
       >
         <input
           type="checkbox"
