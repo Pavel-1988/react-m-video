@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
 import shortid from 'shortid';
 // import Container from './components/Container/Container';
-import initialTodos from './todosm2v2.json';
+// import initialTodos from './todosm2v2.json';
 // import Form from './components/Form'
 import TodoList from './components/TodoList/TodoList';
 // import {ColorPicker} from './components/ColorPicker/ColorPicker'
 import TodoEditor from './components/TodoEditor/TodoEditor'
 import Filter from './components/Filter'
 
+import Modal from './components/Modal/Modal'
+
 
 export class App extends Component { 
-   state = {
-    todos: initialTodos,
+  state = {
+    todos: [],
     filter: '',
+    showModal: false,
   };
 
-    addTodo = text => {
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  }
+
+  addTodo = text => {
       const todo = {
         id: shortid.generate(),
         text,
@@ -74,8 +83,33 @@ export class App extends Component {
     );
   };
 
+  componentDidMount() {
+    console.log('App  componentDidMount !!!!!!')
+
+    const todos = localStorage.getItem('todos')
+    const parsedTodos = JSON.parse(todos);
+
+    if (parsedTodos) {
+       this.setState({todos:parsedTodos})
+    }
+    
+    console.log(parsedTodos)
+   
+  }
+
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App  componentDidUpdate !!!!!!')
+
+    if (this.state.todos !== prevState.todos) {
+      console.log('Обновилось поле тудус')
+
+      localStorage.setItem('todos', JSON.stringify(this.state.todos))
+    }
+  }
+
   render() {
-    const { todos, filter } = this.state;
+    const { todos, filter, showModal } = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos
 
@@ -83,9 +117,10 @@ export class App extends Component {
 
     return (
       <>
+        {showModal && <Modal />}
         {/* < Form onSub={this.formSubmitHandler} /> */}
 
-          <div>
+          {/* <div>
             <p>Всего заметок: {totalTodoCount}</p>
             <p>Выполнено: {completedTodoCount}</p>
         </div>
@@ -96,7 +131,7 @@ export class App extends Component {
           todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        />
+        /> */}
       </>
     )
     
