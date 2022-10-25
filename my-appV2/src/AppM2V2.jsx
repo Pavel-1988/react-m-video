@@ -10,6 +10,9 @@ import Filter from './components/Filter'
 
 import Modal from './components/Modal/Modal'
 
+// import Tabs from './components/Tabs/Tabs';
+// import tabs from './tabs.json';
+
 
 export class App extends Component { 
   state = {
@@ -18,10 +21,22 @@ export class App extends Component {
     showModal: false,
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+   componentDidMount() {
+    // console.log('App  componentDidMount !!!!!!')
+
+    const todos = localStorage.getItem('todos')
+    const parsedTodos = JSON.parse(todos);
+
+    if (parsedTodos) {
+       this.setState({todos:parsedTodos})
+    }
+   
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.todos !== prevState.todos) {
+      localStorage.setItem('todos', JSON.stringify(this.state.todos))
+    }
   }
 
   addTodo = text => {
@@ -83,44 +98,32 @@ export class App extends Component {
     );
   };
 
-  componentDidMount() {
-    console.log('App  componentDidMount !!!!!!')
-
-    const todos = localStorage.getItem('todos')
-    const parsedTodos = JSON.parse(todos);
-
-    if (parsedTodos) {
-       this.setState({todos:parsedTodos})
-    }
-    
-    console.log(parsedTodos)
-   
-  }
-
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log('App  componentDidUpdate !!!!!!')
-
-    if (this.state.todos !== prevState.todos) {
-      console.log('Обновилось поле тудус')
-
-      localStorage.setItem('todos', JSON.stringify(this.state.todos))
-    }
+   toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
   }
 
   render() {
     const { todos, filter, showModal } = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos
-
     const visibleTodos =this.getVisibleTodos()
 
     return (
       <>
-        {showModal && <Modal />}
+        {/* <Tabs items={tabs } /> */}
+        <button type='button' onClick={this.toggleModal}> Открыть модалку</button>
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <h1> Привет это контектн модалки</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quam enim accusamus labore soluta libero eius veniam deleniti sed rerum.</p>
+            <button type='button' onClick={this.toggleModal}> Закрыть модалку</button>
+          </Modal>)}
+     
         {/* < Form onSub={this.formSubmitHandler} /> */}
 
-          {/* <div>
+          <div>
             <p>Всего заметок: {totalTodoCount}</p>
             <p>Выполнено: {completedTodoCount}</p>
         </div>
@@ -131,7 +134,7 @@ export class App extends Component {
           todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        /> */}
+        />
       </>
     )
     
