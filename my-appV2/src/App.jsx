@@ -1,55 +1,24 @@
-import React, {Component} from 'react'
-import Counter from './components/Counter/Counter'
-import Dropdown from './components/Dropdown/Dropdown'
-// import ColorPicker from './components/ColorPicker';
-import TodoList from './components/TodoList'
-import initialTodos from './todos.json'
+import { Component } from 'react';
+import { ToastContainer } from 'react-toastify';
+import PokemonForm from './components/PokemonForm'
+import PokemonInfo from './components/PokemonInfo'
 
-// const colorPickerOptions = [
-//   { label: 'red', color: '#F44336' },
-//   { label: 'green', color: '#4CAF50' },
-//   { label: 'blue', color: '#2196F3' },
-//   { label: 'grey', color: '#607D8B' },
-//   { label: 'pink', color: '#E91E63' },
-//   { label: 'indigo', color: '#3F51B5' },
-// ];
-
-class App extends Component {
-  state = {
-    todos:initialTodos
-  }
-
-  deleteTodo = todoId => {
-    this.setState(prevState => ({
-      todos: prevState.todos.filter(todo => todo.id !== todoId),
-    }));
+export default class App extends Component {
+ state = {
+    pokemonName: '',
+  };
+  handleFormSubmit = pokemonName => {
+    this.setState({ pokemonName});
   };
 
+
   render() {
-    const { todos } = this.state;
-    const totalTodoCount = todos.length;
-    const completedTodoCount = todos.reduce(
-      (total, todo) => (todo.completed ? total + 1 : total),
-      0,
-    );
-
     return (
-      <>
-        <h1>Состояние компонента</h1>
-        <Counter  />
-        <Dropdown />
-        {/* <ColorPicker options={colorPickerOptions} /> */}
-
-        <div>
-          <p>Общее кол-во: {totalTodoCount}</p>
-          <p>Кол-во выполненных:{completedTodoCount }</p>
-        </div>
-
-        <TodoList todos = {todos} onDeleteTodo={this.deleteTodo}/>
-      </>
-    )
+      <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20 }}>
+        <PokemonForm onSubmit={this.handleFormSubmit} />
+        <PokemonInfo pokemonName={this.state.pokemonName}  />
+        <ToastContainer autoClose={3000} />
+      </div>
+    );
   }
 }
-
-
-export default App
