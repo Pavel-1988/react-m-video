@@ -11,7 +11,7 @@ export default function PokemonDataView({ pokemon: { sprites, name, stats } }) {
       <ul>
         {stats.map(entry => (
           <li key={entry.stat.name}>
-            {entry.stat.name}: {entry.base_stat}
+            {entry.stat.name}:- {entry.base_stat}
           </li>
         ))}
       </ul>
