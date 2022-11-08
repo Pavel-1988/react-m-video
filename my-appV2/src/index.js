@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-// import App from './App';
-import App from './App';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter } from 'react-router-dom';
+import { theme } from './theme';
+import {App} from './components/App';
 
 //  ReactDOM.render(
 //   <React.StrictMode>
@@ -11,9 +12,20 @@ import App from './App';
 //    document.getElementById('root')
 //  );
 
- const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+//  const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
