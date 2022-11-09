@@ -41,6 +41,28 @@ const db = {
       },
     },
   ],
+  customers: [
+    { id: 1, name: 'Misha hopkons' },
+    { id: 2, name: 'Фродо Бегинс' },
+    { id: 3, name: 'етмен' },
+    { id: 4, name: 'Супер мен' },
+    { id: 5, name: 'ТАнос' },
+    { id: 6, name: 'Ствиен Кинг' },
+    {id:7, name: 'ДЖ Франзен'},
+    { id: 8, name: 'Евгенидис' },
+    { id: 9, name: 'Карабидис' },
+    {id:10, name: 'Шевченко'},
+    {id:11, name: 'Ярмоленко'},
+    {id:12, name: 'Хендерсон'},
+    { id: 13, name: 'Король дождя' },
+    {id:14, name: 'івфіаі'},
+    {id:15, name: 'фпафвіафі'},
+    { id: 16, name: 'Трент' },
+    { id: 17, name: 'Александр' },
+    { id: 18, name: 'Арнольд' },
+    { id: 19, name: 'Моооооооо' },
+    {id:20, name: 'Салах'},
+  ]
 };
 
 export const getInvoices = () => {
@@ -49,4 +71,12 @@ export const getInvoices = () => {
 
 export const getInvoiceById = invoiceId => {
   return Promise.resolve(db.invoices.find(invoice => invoice.id === invoiceId));
+};
+
+export const getCustumer = () => {
+  return Promise.resolve(db.customers);
+};
+
+export const getCustomerById = id => {
+  return Promise.resolve(db.customers.find(customer => customer.id === id));
 };

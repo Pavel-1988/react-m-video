@@ -1,6 +1,7 @@
-import {Sales} from '../pages/Sales'
+import { Sales } from '../pages/Sales'
+import {Customers} from '../pages/Customers'
 import { Toaster } from 'react-hot-toast';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
 import { Invoices } from './Invoices';
@@ -11,7 +12,7 @@ export const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<div>Homepage index route</div>} />
+          <Route index element={<Navigate to="/dashboard" />} />
           <Route path="dashboard" element={<div>Dashboard</div>} />
           <Route path="sales" element={<Sales />}>
             < Route index element={<div>Sales index route</div> } />
@@ -24,7 +25,8 @@ export const App = () => {
            </Route> 
           <Route path="reports" element={<div>Reports</div>} />
           <Route path="feedback" element={<div>Feedback</div>} />
-          <Route path="customers" element={<div>Customers</div>} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="customers/:customerId" element={<div>customer det</div>} />
         </Route>
       </Routes>
       <GlobalStyle />
